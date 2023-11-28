@@ -2,6 +2,7 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import React, { useEffect, useState, useCallback } from "react";
+import {DataverseConnector, WALLET, SYSTEM_CALL} from "@dataverse/dataverse-connector";
 import { Web3Storage, File } from "web3.storage";
 import Modal from "react-modal";
 import { ethers } from "ethers";
@@ -50,6 +51,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [loadedData, setLoadedData] = useState("Loading...");
 
+  const [wallet, setWallet] = useState<WALLET>()
   const [currentWalletAddress, setCurrentWalletAddress] = useState<string>("");
 
   const [allPosts, setAllPosts] = useState<PostDetail[]>([]);
@@ -64,6 +66,8 @@ export default function Home() {
   const [filename, setFilename] = useState<string>("");
   const [fileDetails, setFileDetails] = useState<string>("");
   const [imageUrl, setImageUrl] = useState<string>("");
+
+  const connector: DataverseConnector = new DataverseConnector()
 
   function openModal() {
     setIsLoading(true);
